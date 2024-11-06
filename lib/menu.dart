@@ -18,7 +18,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Mental Health Tracker',
+          'Toko Kuning',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class MyHomePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 16.0),
                     child: Text(
-                      'Welcome to Mental Health Tracker',
+                      'Welcome to Toko Kuning',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
