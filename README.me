@@ -1,0 +1,42 @@
+1. Apa itu Stateless Widget dan Stateful Widget? Apa perbedaannya?
+Stateless Widget: Ini adalah widget yang tidak berubah. Artinya, widget ini hanya akan ditampilkan sekali dan tidak akan ada perubahan data atau tampilan setelah itu. Pada intinya, bikin tampilan yang isinya tetap sama sepanjang waktu, disini pakai StatelessWidget. Contohnya kayak teks atau gambar yang nggak berubah.
+
+Stateful Widget: Berbeda dari stateless, StatefulWidget itu widget yang bisa berubah. Misalnya, kalau saya ingin buat tombol yang berubah warna saat ditekan, atau form yang datanya berubah-ubah, ini pakai StatefulWidget. Widget ini punya state yang bisa diperbarui seiring waktu. Jadi, kalau ada interaksi dari pengguna, tampilannya bisa ikut berubah.
+
+Perbedaannya:
+
+StatelessWidget: Cuma ditampilkan sekali, nggak bisa berubah.
+StatefulWidget: Bisa berubah, ada state yang bisa diupdate.
+
+2. Widget apa saja yang digunakan di proyek ini dan fungsinya?
+Di proyek ini, beberapa widget yang digunakan adalah:
+
+Scaffold: Ini adalah widget yang jadi kerangka utama untuk halaman saya, termasuk bagian AppBar dan body. Kalau di ibaratkan, ini kayak "struktur bangunan"-nya.
+
+AppBar: Ini adalah bagian atas layar yang menampilkan judul atau aplikasi. Biasanya ada tombol navigasi atau aksi lainnya di sini.
+
+Padding: Widget yang memberi jarak atau padding di sekitar konten, biar nggak mepet dengan tepi layar.
+
+Column dan Row: Ini digunakan untuk menyusun widget lain secara vertikal (Column) atau horizontal (Row). Jadi saya bisa ngatur tata letaknya.
+
+Card: Kartu ini dipakai buat membungkus konten dengan tampilan yang lebih menarik, biasanya dengan bayangan sedikit di bawahnya.
+
+GridView: Widget ini dipakai buat menampilkan item-item dalam bentuk grid (seperti tampilan kotak-kotak).
+
+InkWell: Widget ini buat memberi efek saat pengguna menekan suatu elemen. Biasanya ada efek ripple atau animasi kecil.
+
+3. Apa fungsi dari setState()? Variabel apa saja yang bisa terdampak?
+setState() itu digunakan di dalam StatefulWidget untuk memberi tahu Flutter kalau ada perubahan pada data atau state yang mengubah tampilan. Jadi, ketika manggil setState(), itu bakal memicu Flutter untuk merender ulang widget yang berubah, dan menampilkan tampilan yang baru.
+
+Variabel yang terdampak adalah variabel yang ada di dalam state (kelas yang diwariskan dari State<T>). Misalnya, kalau saya punya sebuah variabel di state yang ngatur tampilan, dan saya ubah variabel itu, setState() bakal bikin tampilan itu di-update otomatis.
+
+
+4. Perbedaan antara const dan final
+const: Variabel yang menggunakan const ini nilai dari variabel tersebut tidak bisa diubah sama sekali selama aplikasi berjalan. Ini juga berarti nilai tersebut sudah ditentukan saat kompilasi, bukan saat runtime. Biasanya dipakai di tempat yang butuh performa tinggi atau nilai yang memang konstan.
+
+final: Variabel yang menggunakan final hanya bisa di-assign sekali, tapi nilainya dapat dihitung saat runtime. Jadi, kalau const itu benar-benar tetap selama kompilasi, final itu tetap nggak bisa diubah setelah pertama kali di-set, tapi bisa ditentukan saat aplikasi berjalan.
+
+5. Bagaimana cara mengimplementasikan checklist-checklist di atas?
+
+Tombol Lihat Daftar Produk, Tambah Produk, dan Logout: Saya buat list ItemHomepage yang berisi tiga tombol tersebut dengan ikon dan warna yang berbeda-beda. Setiap tombol diwakili oleh objek dengan nama, ikon, dan warna.
+Snackbar: Untuk menampilkan pesan saat tombol ditekan, saya pakai InkWell di dalam setiap tombol. Setiap kali tombol ditekan, saya manggil ScaffoldMessenger.of(context).showSnackBar() untuk menampilkan pesan Snackbar yang sesuai dengan tombol yang ditekan.
