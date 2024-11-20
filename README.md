@@ -123,3 +123,54 @@ Ya, saya mengimplementasikan tema pada aplikasi saya. Saya mendefinisikan ThemeD
 
 5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
 Untuk menangani navigasi dengan banyak halaman, saya menggunakan Navigator pada Flutter. Navigator.push digunakan untuk berpindah ke halaman baru, dan Navigator.pop untuk kembali ke halaman sebelumnya. Saya juga mendefinisikan routes di MaterialApp sehingga setiap halaman memiliki nama unik, yang memudahkan navigasi menggunakan Navigator.pushNamed untuk pergi ke halaman tertentu.
+
+
+Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?
+Model digunakan untuk menyusun dan memformat data secara terstruktur, baik itu untuk pengambilan maupun pengiriman data JSON. Dalam aplikasi Flutter, model ini memberikan kemudahan untuk menangani data yang dikirim ke server atau diterima dari server, dengan memastikan format data yang diterima atau dikirim sudah sesuai dengan yang diharapkan.
+  Pengambilan Data: Setelah menerima JSON dari server, data tersebut bisa diubah menjadi objek yang lebih mudah diolah dalam Flutter, seperti list, map, atau objek dari kelas model. Dengan model, kita bisa dengan mudah mengonversi JSON menjadi objek Dart yang memiliki tipe data jelas.
+  Pengiriman Data: Saat mengirim data ke server (misalnya saat menambahkan produk atau mood baru), model memastikan bahwa data yang dikirimkan mengikuti struktur yang benar (misalnya, name, price, quantity dalam format JSON).
+  Jika Tidak Membuat Model: Tanpa model, kita harus memanipulasi data secara manual, seperti menggunakan Map<String, dynamic> setiap kali mengirim atau menerima data JSON. Hal ini lebih rawan error, karena tidak ada pengecekan tipe data dan strukturnya.
+
+
+
+Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini
+Library http digunakan untuk melakukan permintaan HTTP ke server (misalnya, ke backend Django). Dalam kode ini, kita menggunakan http untuk mengirim permintaan POST dan menerima respons dalam bentuk JSON.
+Permintaan tersebut bisa berupa operasi seperti login, register, dan mengirim data seperti mood atau produk baru ke server.
+Fungsi utama dari http adalah untuk mengelola komunikasi antara aplikasi Flutter dan server Django, serta mengatur status respons (misalnya, jika statusnya sukses atau error).
+
+
+Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+Fungsi CookieRequest: CookieRequest adalah subclass dari http yang berfungsi untuk mengelola permintaan HTTP dan menyimpan cookie (biasanya untuk otentikasi pengguna). Cookie ini penting untuk melacak sesi pengguna, seperti setelah login, agar pengguna tidak perlu login ulang setiap kali.
+Mengapa Perlu Dibagikan: CookieRequest perlu dibagikan ke semua komponen karena menyimpan informasi sesi pengguna (seperti cookie otentikasi). Dengan membagikan instance CookieRequest, seluruh aplikasi dapat mengakses sesi pengguna yang sudah login dan mengirim permintaan yang memerlukan otentikasi (misalnya, menambahkan produk atau melihat mood pengguna).
+Membagikan instance CookieRequest memastikan bahwa semua permintaan HTTP dapat menggunakan cookie yang sama, memungkinkan autentikasi tetap terjaga di seluruh aplikasi.
+
+Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+Input Data: Pengguna mengisi data dalam form Flutter, seperti form untuk menambahkan produk atau mood. Data tersebut diambil dari TextFormField dan disimpan dalam variabel lokal.
+Pengiriman Data ke Server: Setelah pengguna menekan tombol "Save", data akan dikirim ke server menggunakan http request (postJson dari CookieRequest).
+Data dikirim dalam format JSON (jsonEncode), sesuai dengan struktur yang diinginkan oleh backend (misalnya, data produk atau mood baru).
+Proses di Server: Backend Django menerima data JSON dan memprosesnya (misalnya, menyimpannya ke database). Setelah proses selesai, server mengirimkan respons kembali (misalnya, status "success" atau "error").
+Menampilkan Data pada Flutter: Setelah menerima respons sukses, aplikasi Flutter akan menampilkan pesan sukses dengan SnackBar dan bisa memuat ulang halaman atau navigasi ke halaman lain yang memperbarui tampilan data.
+
+Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+1. Login:
+Pengguna memasukkan data akun (username dan password) di halaman login Flutter.
+Data tersebut dikirim ke server Django menggunakan HTTP POST request (misalnya, endpoint /login/).
+Server memvalidasi data, dan jika berhasil, server mengembalikan token atau cookie yang menunjukkan bahwa pengguna sudah terautentikasi.
+2. Register:
+Pengguna mengisi form register dengan data akun baru.
+Data dikirim ke server untuk dibuatkan akun baru, dan server memberikan respons sukses atau error.
+3. Logout:
+Ketika pengguna menekan tombol logout, aplikasi mengirim permintaan ke server untuk menghapus sesi atau cookie otentikasi.
+Server memproses permintaan logout dan menghapus sesi atau cookie. Setelah itu, aplikasi mengalihkan pengguna kembali ke halaman login.
+
+Peran CookieRequest: CookieRequest menjaga sesi ini dengan menyertakan cookie di setiap permintaan HTTP, memastikan pengguna tetap terautentikasi sampai logout.
+
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+1. Buat Model Data: Tentukan model data (misalnya, produk, mood) di server Django dan di Flutter Pastikan format data JSON yang dikirim dan diterima sudah sesuai dengan model ini.
+2. Integrasi HTTP dengan CookieRequest: Implementasikan http di Flutter untuk berkomunikasi dengan server. Gunakan CookieRequest untuk menangani otentikasi dan cookie.
+3. Buat Form Input di Flutter: Buat halaman dengan TextFormField untuk menerima input dari pengguna. Pastikan data yang dimasukkan diproses dengan benar.
+4. Kirim Data ke Server: Implementasikan fungsi yang mengirimkan data ke server menggunakan HTTP POST. Pastikan data  di-encode dengan format JSON.
+5. Menangani Respons dari Server: Setelah data dikirim, tangani respons server (sukses atau error) dan beri feedback pada pengguna menggunakan SnackBar atau dialog.
+6. Autentikasi Pengguna: Implementasikan login dan register dengan mengirim data akun ke server dan mendapatkan respons token atau status autentikasi.
+7. Navigasi dan Keamanan: Gunakan Navigator untuk berpindah antar halaman sesuai status login dan pastikan sesi pengguna tetap aktif selama mereka berada di aplikasi. Dengan mengikuti langkah-langkah ini, Anda dapat membangun aplikasi yang dapat menangani pengiriman data, autentikasi pengguna, dan pengelolaan sesi dengan baik, sambil menjaga aplikasi tetap terstruktur dan aman.
